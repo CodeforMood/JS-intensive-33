@@ -74,7 +74,7 @@
 ## HomeWork №2
 
 1\.
-  ```javascript
+```javascript
 const counterOne = { count: 1 };  // создание объекта литеральным способом
 
 // Создание объектов с помощью встроенных методов объекта
@@ -112,7 +112,7 @@ const counterSeven = Object.defineProperties({}, {
 });
 
 
-// Конструктор объекта
+//Создание объектов с помощью конструктора объекта
 const counterEight = new Object();
 counterEight.count = 1;
 
@@ -128,10 +128,10 @@ class Counter {
 }
 const counterTen = new Counter();
 
-  ```
+```
 
 2\.
-  ```javascript
+```javascript
 const counter = {count: 1};
 
 const counterCloneOne = Object.assign({}, counter); //поверхностное копирование
@@ -142,10 +142,10 @@ const counterDeepCloneOne = structuredClone(counter); //глубокое коп�
 
 const counterDeepCloneTwo = JSON.parse(JSON.stringify(counter)) //глубокое копирование
 
-  ```
+```
 
 3\.
-  ```javascript
+```javascript
 // Function Declaration
 function makeCounterOne() {
   return { count: 1 };
@@ -164,18 +164,19 @@ const makeCounterFour = function makeCounter() {
   return { count: 1 };
 }
 
-  ```
+```
 
 4\.
-  ```javascript
+```javascript
 const deepEqual = (obj1, obj2) => {
-  if(typeof obj1 !== 'object' || typeof obj2 !== 'object') return false
-  if(Object.keys(obj1).length !== Object.keys(obj2).length) return false
-  if(obj1 === obj2) return 'Ссылаются на один и тот же объект'
+  if(typeof obj1 !== 'object' || typeof obj2 !== 'object') return false;
+  if(Object.keys(obj1).length !== Object.keys(obj2).length) return false;
+  if(obj1 === obj2) return 'Ссылаются на один и тот же объект';
 
   for(key in obj1) {
     if(typeof obj1[key] === 'object') {
       if(deepEqual(obj1[key], obj2[key])) continue
+
       return false
     }
     if(obj1[key] !== obj2[key]) {
@@ -202,19 +203,21 @@ const obj2 = {
   },
   object: 'X',
 };
+
 console.log(deepEqual(obj1, obj2)) //false
 
-  ```
+```
 5\.
-  ```javascript
-const reverseString1 = str => {
+```javascript
+const reverseStr1 = str => {
   let resStr = '';
   str.split('').forEach(char => resStr = char + res);
+
   return res;
 }
 
-const reverseString2 = str => str.split('').reverse().join('');
+const reverseStr2 = str => str.split('').reverse().join('');
 
-const reverseString3 = str => str.split('').reduce((resStr, char) => char + resStr, '')
+const reverseStr3 = str => str.split('').reduce((resStr, char) => char + resStr, '')
 
-  ```
+```
