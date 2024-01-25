@@ -71,3 +71,150 @@
   ```
       
 
+## HomeWork №2
+
+1\.
+  ```javascript
+const counterOne = { count: 1 };  // создание объекта литеральным способом
+
+// Создание объектов с помощью встроенных методов объекта
+const counterTwo = Object.create(null);
+counterTwo.count = 1;
+
+const counterThree = Object.create({}, {
+  count: {
+    value: 1,
+    configurable: true,
+    enumerable: true,
+    writable: true,
+  }
+})
+
+const counterFour = Object.assign({}, { count: 1 });
+const counterFive = Object.assign({}, counterFour);
+
+
+
+const counterSix = Object.defineProperty({}, 'count', {
+  value: 1,
+  configurable: true,
+  enumerable: true,
+  writable: true,
+});
+
+const counterSeven = Object.defineProperties({}, {
+  count: {
+    value: 1,
+    configurable: true,
+    enumerable: true,
+    writable: true,
+  },
+});
+
+
+// Конструктор объекта
+const counterEight = new Object();
+counterEight.count = 1;
+
+function CreateCounter() {
+  this.count = 1;
+}
+const counterNine = new CreateCounter();
+
+class Counter {
+  constructor() {
+    this.count = 1;
+  }
+}
+const counterTen = new Counter();
+
+  ```
+
+2\.
+  ```javascript
+const counter = {count: 1};
+
+const counterCloneOne = Object.assign({}, counter); //поверхностное копирование
+
+const counterCloneTwo = { ...counter }; //поверхностное копирование
+
+const counterDeepCloneOne = structuredClone(counter); //глубокое копирование 
+
+const counterDeepCloneTwo = JSON.parse(JSON.stringify(counter)) //глубокое копирование
+
+  ```
+
+3\.
+  ```javascript
+// Function Declaration
+function makeCounterOne() {
+  return { count: 1 };
+}
+
+// Function Expression
+const makeCounterTwo = function() {
+  return { count: 1 };
+}
+
+// Arrow Function
+const makeCounterThree = () => { count: 1 };
+
+// Named Function Expression
+const makeCounterFour = function makeCounter() {
+  return { count: 1 };
+}
+
+  ```
+
+4\.
+  ```javascript
+const deepEqual = (obj1, obj2) => {
+  if(typeof obj1 !== 'object' || typeof obj2 !== 'object') return false
+  if(Object.keys(obj1).length !== Object.keys(obj2).length) return false
+  if(obj1 === obj2) return 'Ссылаются на один и тот же объект'
+
+  for(key in obj1) {
+    if(typeof obj1[key] === 'object') {
+      if(deepEqual(obj1[key], obj2[key])) continue
+      return false
+    }
+    if(obj1[key] !== obj2[key]) {
+      return false
+    }
+  }
+
+  return true
+}
+
+
+const obj1 = {
+  here: {
+    is: 'on',
+    other: '1',
+  },
+  object: 'X',
+};
+
+const obj2 = {
+  here: {
+    is: 'on',
+    other: '2',
+  },
+  object: 'X',
+};
+console.log(deepEqual(obj1, obj2)) //false
+
+  ```
+5\.
+  ```javascript
+const reverseString1 = str => {
+  let resStr = '';
+  str.split('').forEach(char => resStr = char + res);
+  return res;
+}
+
+const reverseString2 = str => str.split('').reverse().join('');
+
+const reverseString3 = str => str.split('').reduce((resStr, char) => char + resStr, '')
+
+  ```
