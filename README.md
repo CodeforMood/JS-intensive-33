@@ -221,3 +221,40 @@ const reverseStr2 = str => str.split('').reverse().join('');
 const reverseStr3 = str => str.split('').reduce((resStr, char) => char + resStr, '')
 
 ```
+
+
+## HomeWork №3
+
+1\. Массивы в Javascript являются неправильными и совмещают в себе сразу несколько структур данных(стеки, очереди, упорядоченные списки), так как по задумке длина массива должна быть неизменной, т.е для того чтобы добавить элемент в массив, нужно создать новый массив длиннее старого на один элемент, затем скопировать в него все значения старого массива и качестве нового элемента указать новое значение.
+
+2\.
+```javascript
+const obj = { 
+  item: "some value" 
+};
+
+function logger() {
+  console.log(`I output only external context: ${this.item}`);
+};
+
+logger.apply(obj);
+
+logger.call(obj);
+
+const bindedLogger = logger.bind(obj);
+bindedLogger();
+
+```
+
+3\.
+```javascript
+Function.prototype.myBind = function(context) {
+  const thisFunc = this;
+  const args = Array.from(arguments).slice(1);
+ 
+  return function() {
+    return thisFunc.apply(context, args);
+  }
+}
+
+```
