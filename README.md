@@ -457,3 +457,115 @@ firstSum(arr, total) //[6, 7]
 
 //Сложность данного алгоритма O(n), но есть у данного решения минус это создание hash-таблицы, которая будет занимать память
 ```
+
+## HomeWork №4
+
+1\.
+```javascript
+let promiseTwo = new Promise((resolve, reject) => {
+  resolve("a"); // промис зарезолвится со значением 'a'
+});
+
+promiseTwo
+  .then((res) => { // res = 'a'
+    return res + "b"; // вернёт промис со значением 'ab'
+  })
+  .then((res) => {
+    return res + "с"; // вернёт промис со значением 'abc'
+  })
+  .finally((res) => {
+    return res + "!!!!!!!"; // finally ничего не принимает и не возвращает
+  })
+  .catch((res) => {
+    return res + "d"; // catch будет пропущен, ошибок нет
+  })
+  .then((res) => {
+    console.log(res); // выведет в консоль 'abc', вернёт промис со значением undefined
+  });
+```
+2\.
+```javascript
+function doSmth() {
+  return Promise.resolve("123");
+}
+
+doSmth()
+  .then(function (a) {
+    console.log("1", a); // выведет в консоль '1 123'
+    return a; // вернёт промис со значением '123'
+  })
+  .then(function (b) {
+    console.log("2", b); // выведет в консоль '2 123'
+    return Promise.reject("321"); // отклонит промис со значением '321'
+  })
+  .catch(function (err) {
+    console.log("3", err); // выведет в консоль '3 321', вернёт промис со значением undefined
+  })
+  .then(function (c) {
+    console.log("4", c); // выведет в консоль '4 undefined'
+    return c; // вернёт промис со значением 'undefined'
+  });
+
+// порядок вывода в консоль: 
+// '1 123'
+// '2 123'
+// '3 321'
+// '4 undefined'
+```
+3\.
+```javascript
+function printArrElemWithDelay(arr, delayMs = 3000) {
+  for(let i = 0; i < arr.length, i++) {
+    setTimeout(() => console.log(i), delayMs*(i+1))
+  }
+}
+```
+
+4\. Мы можем использовать await на верхнем уровне модуля. Наш модуль не завершит загрузку, пока не будет выполнен promise (это означает, что любой модуль, ожидающий загрузки нашего модуля, не завершит загрузку, пока не будет выполнен promise). Если promise отклонен, наш модуль тоже не загрузится. 
+  Как правило, top-level await используется в ситуациях, когда мы 
+хотим, чтобы модуль не  выполнялся до тех пор, пока promise не будет выполнен. Если мы хотим чтобы модуль выполнился даже если promise отклонен, можно обернуть top-level await в кострукцию try/catch
+
+5\.
+```javascript
+//Решим задачу с помощью цикла for и await
+async function fetchUrl(url) {
+  for(let attemptsCount = 1; attemptsCount <= 5; attemptsCount++) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) { 
+        return res;
+      } else {
+        Promise.reject(res.status)
+      }  
+    } catch(e) {
+      if(attemptsCount <= 4) {
+        continue
+      }
+      return Promise.reject(e)
+    }
+  }
+}
+
+//Решим задачу с помощью рекурсии и promise.chaining
+function fetchUrl(url, attemptsCount = 5) {
+  return fetch(url).then((res) => {
+    if(res.ok) {
+      return res
+    } else {
+      return Promise.reject(res.status)
+    }
+  }).catch((er) => {
+    if(attemptsCount === 1) {
+      return Promise.reject(er);
+    }
+    return fetchUrl(url, --attemptsCount)  
+  })
+}
+
+//Для проверки
+fetchUrl('https://google/com&#39').then(res => {
+ console.log(res);
+}).catch((er) => {
+ console.log(`Error: ${er}`)
+})
+```
