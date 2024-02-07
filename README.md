@@ -570,7 +570,7 @@ fetchUrl('https://google/com&#39').then(res => {
 })
 ```
 
-## HomeWork №5
+## HomeWork №6
 
 1\.
 
